@@ -1,0 +1,8 @@
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/spa
+
+note over server:
+note is represented
+in the json format
+end note
+
+server-->browser: status code 201
