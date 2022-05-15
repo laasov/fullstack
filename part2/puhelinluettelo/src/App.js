@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const PhoneId = ({ person, number }) => <p>{person} {number}</p>
 
@@ -46,18 +47,19 @@ const IdList = (props) => {
 }
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123-1244' },
-    { name: 'Asd Sadafa', number: '1234' },
-    { name: 'Jotaro Joestar', number: '1337' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' },
-    { name: 'Obama',number: 'REDACTED' }
-  ]) 
+  const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNum, setNewNum] = useState('')
   const [filt, setFilt] = useState('')
+
+  useEffect(() => {
+    console.log('effect')
+    axios.get('http://localhost:3001/persons').then(respose => {
+      console.log('promise fulfilled')
+      setPersons(respose.data)
+    })
+  }, [])
+  console.log('render', persons.length, 'persons')
 
   const handleNamePrompt = (e) => {
     console.log('handleNamePrompt event:', e.target.value)
